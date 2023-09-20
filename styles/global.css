@@ -1,0 +1,42 @@
+:root {
+    /* Light theme */
+    --text-color: black;
+    --bg-color: white;
+    --body-bg-color: white;
+    /* default body background */
+}
+
+[data-theme="dark"] {
+    /* Dark theme */
+    --text-color: white;
+    --bg-color: black;
+    --body-bg-color: black;
+    /* dark body background */
+}
+
+/* Set body or wrapper background */
+body,
+.app-wrapper {
+    background-color: var(--body-bg-color);
+    color: var(--text-color);
+}
+
+.homePage {
+    text-align: center;
+    margin: 0 auto;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.homePage__header {
+    max-width: 800px;
+    margin: 0 auto;
+    /* additional styling if needed */
+}
+
+.homePage__chat {
+    display: flex;
+    justify-content: center;
+}
+
+/* Add more global or component-specific styles here */
