@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 interface Message {
     id: number;
     content: string;
+    displayedContent?: string;
 }
 
 const BASE_API_URL = 'http://localhost:8000/chat';
@@ -11,7 +12,8 @@ const Chat: React.FC = () => {
     const [messages, setMessages] = useState<Message[]>([]);
     const [newMessage, setNewMessage] = useState<string>('');
     const [isConnected, setIsConnected] = useState<boolean>(false);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isSending, setIsSending] = useState<boolean>(false);
+
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -20,7 +22,7 @@ const Chat: React.FC = () => {
                 const response = await fetch(`${BASE_API_URL}/history`);
                 if (response.ok) {
                     setIsConnected(true);
-                    fetchMessages();
+                    await fetchMessages();
                 } else {
                     setIsConnected(false);
                 }
@@ -33,31 +35,31 @@ const Chat: React.FC = () => {
     }, []);
 
     const fetchMessages = async () => {
-        setIsLoading(true);
         try {
             const response = await fetch(`${BASE_API_URL}/history`);
-            if (response.ok) {
-                const data = await response.json();
-                const adaptedMessages: Message[] = data.map((msg: any, index: number) => ({
-                    id: index,
-                    content: msg.content,
-                }));
-                setMessages(adaptedMessages);
-            }
+            const data = await response.json();
+            const adaptedMessages: Message[] = data.map((msg: any, index: number) => ({
+                id: index,
+                content: msg.content,
+            }));
+            setMessages(adaptedMessages);
         } catch (error) {
-            // Handle error
+            // Handle the error
         }
-        setIsLoading(false);
     };
 
     const handleSendMessage = async () => {
-        setIsLoading(true);
-        if (!newMessage) return;
+        if (!newMessage || isSending) return;
+
+        setIsSending(true);
 
         const formData = new FormData();
         formData.append('input', newMessage);
 
         try {
+            // TEST MODE
+            formData.append('testMode', 'true'); // Append testMode to formData
+
             const response = await fetch(`${BASE_API_URL}/message/`, {
                 method: 'POST',
                 body: formData,
@@ -65,12 +67,19 @@ const Chat: React.FC = () => {
 
             if (response.ok) {
                 setNewMessage('');
-                fetchMessages();
+                await fetchMessages();
             }
         } catch (error) {
-            // Handle error
+            // Handle the error
         }
-        setIsLoading(false);
+
+        setIsSending(false);
+    };
+
+    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter' && !isSending) {
+            handleSendMessage();
+        }
     };
 
     useEffect(() => {
@@ -87,7 +96,6 @@ const Chat: React.FC = () => {
                                 {message.content}
                             </div>
                         ))}
-                        {isLoading && <div className="loading">Loading...</div>}
                         <div ref={messagesEndRef}></div>
                     </div>
                     <div className="input-box">
@@ -95,8 +103,12 @@ const Chat: React.FC = () => {
                             type="text"
                             value={newMessage}
                             onChange={(e) => setNewMessage(e.target.value)}
+                            onKeyPress={handleKeyPress}
+                            disabled={isSending}
                         />
-                        <button onClick={handleSendMessage}>Send</button>
+                        <button onClick={handleSendMessage} disabled={isSending}>
+                            {isSending ? 'Sending...' : 'Send'}
+                        </button>
                     </div>
                 </>
             ) : (
