@@ -112,7 +112,10 @@ const Chat: React.FC = () => {
                     </div>
                 </>
             ) : (
-                <div>Unable to connect to API</div>
+                <div className="error-container">
+                    <div>Unable to connect to API ;(</div>
+                </div>
+
             )}
         </div>
     );
