@@ -39,4 +39,56 @@ body,
     justify-content: center;
 }
 
-/* Add more global or component-specific styles here */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    /* Adjust as needed */
+    width: 800px;
+    /* Fixed width */
+    border: 1px solid #ccc;
+    margin: 0 auto;
+    margin-top: 30px;
+    /* Add margin at the top */
+}
+
+.chat-box {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+    /* Align text to the left */
+}
+
+
+.input-box {
+    display: flex;
+    padding: 10px;
+}
+
+.input-box input {
+    flex: 1;
+}
+
+.message-right,
+
+.message-left {
+    margin-bottom: 15px;
+    /* Adds space below each message */
+}
+
+.message-right {
+    text-align: right;
+}
+
+.message-left {
+    text-align: left;
+}
+
+.loading {
+    /* Your loading styles here, e.g., */
+    font-size: 14px;
+    text-align: center;
+    padding: 10px;
+}

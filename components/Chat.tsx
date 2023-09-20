@@ -1,32 +1,30 @@
-// components/Chat.tsx
-import React, { useState, useEffect } from 'react';
-
-const BASE_API_URL = 'http://localhost:8000/chat';
+import React, { useState, useEffect, useRef } from 'react';
 
 interface Message {
     id: number;
     content: string;
 }
 
+const BASE_API_URL = 'http://localhost:8000/chat';
+
 const Chat: React.FC = () => {
     const [messages, setMessages] = useState<Message[]>([]);
-    const [newMessage, setNewMessage] = useState('');
-    const [isConnected, setIsConnected] = useState(false);
+    const [newMessage, setNewMessage] = useState<string>('');
+    const [isConnected, setIsConnected] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const messagesEndRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const checkConnection = async () => {
             try {
                 const response = await fetch(`${BASE_API_URL}/history`);
                 if (response.ok) {
-                    console.log('Successfully connected to API.');
                     setIsConnected(true);
-                    fetchMessages(); // Fetch messages after successful connection
+                    fetchMessages();
                 } else {
-                    console.error('API connection failed:', response.statusText);
                     setIsConnected(false);
                 }
             } catch (error) {
-                console.error('An error occurred while checking API connection:', error);
                 setIsConnected(false);
             }
         };
@@ -35,25 +33,26 @@ const Chat: React.FC = () => {
     }, []);
 
     const fetchMessages = async () => {
+        setIsLoading(true);
         try {
             const response = await fetch(`${BASE_API_URL}/history`);
             if (response.ok) {
                 const data = await response.json();
-                const adaptedMessages: Message[] = data.map((msg: any, index: number) => {
-                    return { id: index, content: msg.content };
-                });
+                const adaptedMessages: Message[] = data.map((msg: any, index: number) => ({
+                    id: index,
+                    content: msg.content,
+                }));
                 setMessages(adaptedMessages);
-            } else {
-                console.error('Failed to fetch messages:', response.statusText);
             }
         } catch (error) {
-            console.error('An error occurred while fetching messages:', error);
+            // Handle error
         }
+        setIsLoading(false);
     };
 
-
     const handleSendMessage = async () => {
-        if (!newMessage) return; // Prevent empty messages
+        setIsLoading(true);
+        if (!newMessage) return;
 
         const formData = new FormData();
         formData.append('input', newMessage);
@@ -65,27 +64,33 @@ const Chat: React.FC = () => {
             });
 
             if (response.ok) {
-                const output = await response.json();
-                setMessages([...messages, { id: Date.now(), content: output }]);
                 setNewMessage('');
-            } else {
-                console.error('Failed to send message:', response.statusText);
+                fetchMessages();
             }
         } catch (error) {
-            console.error('An error occurred while sending the message:', error);
+            // Handle error
         }
+        setIsLoading(false);
     };
 
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [messages]);
+
     return (
-        <div>
+        <div className="chat-container">
             {isConnected ? (
                 <>
-                    <div>
-                        {messages.map((message) => (
-                            <div key={message.id}>{message.content}</div>
+                    <div className="chat-box">
+                        {messages.map((message, index) => (
+                            <div key={message.id} className={index % 2 === 0 ? 'message-right' : 'message-left'}>
+                                {message.content}
+                            </div>
                         ))}
+                        {isLoading && <div className="loading">Loading...</div>}
+                        <div ref={messagesEndRef}></div>
                     </div>
-                    <div>
+                    <div className="input-box">
                         <input
                             type="text"
                             value={newMessage}
