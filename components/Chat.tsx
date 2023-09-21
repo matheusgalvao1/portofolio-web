@@ -7,6 +7,7 @@ interface Message {
 }
 
 const BASE_API_URL = 'http://localhost:8000/chat';
+const testMode = true;
 
 const Chat: React.FC = () => {
     const [messages, setMessages] = useState<Message[]>([]);
@@ -58,7 +59,9 @@ const Chat: React.FC = () => {
 
         try {
             // TEST MODE
-            formData.append('testMode', 'true'); // Append testMode to formData
+            if (testMode) {
+                formData.append('testMode', 'true'); // Append testMode to formData
+            }
 
             const response = await fetch(`${BASE_API_URL}/message/`, {
                 method: 'POST',

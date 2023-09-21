@@ -1,6 +1,6 @@
-// pages/_app.tsx
 import React, { useEffect } from 'react';
 import type { AppProps } from 'next/app';
+import Head from 'next/head';
 import '../styles/global.css';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
@@ -9,7 +9,15 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
         document.documentElement.setAttribute('data-theme', theme);
     }, []);
 
-    return <Component {...pageProps} />;
+    return (
+        <>
+            <Head>
+                <title>Matheus' Portfolio</title>
+                <link rel="icon" href="/favicon.png" />
+            </Head>
+            <Component {...pageProps} />
+        </>
+    );
 };
 
 export default MyApp;
