@@ -31,7 +31,7 @@ body,
 .homePage__header {
     max-width: 800px;
     margin: 0 auto;
-    /* additional styling if needed */
+    margin-top: 30px;
 }
 
 .homePage__chat {
@@ -42,14 +42,12 @@ body,
 .chat-container {
     display: flex;
     flex-direction: column;
-    height: 400px;
-    /* Adjust as needed */
+    height: 500px;
     width: 800px;
-    /* Fixed width */
     border: 1px solid #ccc;
+    border-radius: 10px;
     margin: 0 auto;
     margin-top: 30px;
-    /* Add margin at the top */
 }
 
 .chat-box {
