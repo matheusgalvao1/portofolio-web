@@ -36,9 +36,10 @@ const Chat: React.FC = () => {
                 if (response.ok) {
                     const id = await startChat();
                     if (id) {
-                        console.log("ID received from startChat:", id);  // Should log the correct ID
                         setChatId(id);
-                        await fetchMessages(id);  // Pass id directly to fetchMessages
+                        console.log("Chat ID received: ", id);
+                        console.log("Chat ID local: ", chatId);
+                        await fetchMessages();
                         setIsConnected(true);
                     }
                 } else {
@@ -75,12 +76,17 @@ const Chat: React.FC = () => {
         }
     };
 
-    const fetchMessages = async (chatId: string) => {
+    const fetchMessages = async () => {
         if (!chatId) return;
 
         try {
-            console.log("Chat ID passed to fetchMessages:", chatId);  // Should log the correct ID
-            const response = await fetch(`${BASE_API_URL}/get_chat_db/?chat_id=${chatId}`);
+            const formData = new FormData();
+            formData.append('chat_id', chatId);
+
+            const response = await fetch(`${BASE_API_URL}/get_chat_db/`, {
+                method: 'POST', // or whatever HTTP method is appropriate for your API
+                body: formData,
+            });
             const data = await response.json();
 
             const adaptedMessages: Message[] = data.messages.map((msg: any, index: number) => ({
@@ -96,28 +102,31 @@ const Chat: React.FC = () => {
 
 
     const handleSendMessage = async () => {
-        if (!newMessage || isSending || !chatId) return;
+        if (!newMessage || isSending) return;
 
         setIsSending(true);
 
-        console.log("Chat ID passed to handleSendMessage:", chatId);  // Should log the correct ID
-        console.log("New message passed to handleSendMessage:", newMessage);  // Should log the correct message
-
-        const queryString = `chat_id=${chatId}&message=${encodeURIComponent(newMessage)}`;
+        const formData = new FormData();
+        formData.append('chat_id', chatId);
+        formData.append('message', newMessage);
 
         try {
-            const response = await fetch(`${BASE_API_URL}/send_message/?${queryString}`, {
+            // TEST MODE
+            //if (testMode) {
+            //    formData.append('testMode', 'true'); // Append testMode to formData
+            //}
+
+            const response = await fetch(`${BASE_API_URL}/send_message/`, {
                 method: 'POST',
+                body: formData,
             });
 
             if (response.ok) {
                 setNewMessage('');
-                await fetchMessages(chatId);
-            } else {
-                console.error('Failed to send message:', await response.text());
+                await fetchMessages();
             }
         } catch (error) {
-            console.error('Error sending message:', error);
+            // Handle the error
         }
 
         setIsSending(false);
