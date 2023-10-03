@@ -5,7 +5,8 @@ interface Message {
     author: string;
 }
 
-const BASE_API_URL_CHECK = 'http://localhost:8000';
+//const BASE_API_URL_CHECK = 'http://localhost:8000';
+const BASE_API_URL_CHECK = process.env.NEXT_PUBLIC_BASE_API_URL_CHECK;
 const BASE_API_URL = BASE_API_URL_CHECK + '/chat';
 //const testMode = false;
 
