@@ -22,7 +22,6 @@ const Chat: React.FC = () => {
 
     const [chatId, setChatId] = useState<string | null>(null);
 
-    //const [currentChat, setCurrentChat] = useState<ChatModel>(null);
     const [messages, setMessages] = useState<Message[]>([]);
     const [newMessage, setNewMessage] = useState<string>('');
     const [isConnected, setIsConnected] = useState<boolean>(false);
