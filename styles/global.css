@@ -3,7 +3,6 @@
     --text-color: black;
     --bg-color: white;
     --body-bg-color: white;
-    /* default body background */
 }
 
 [data-theme="dark"] {
@@ -11,10 +10,8 @@
     --text-color: white;
     --bg-color: black;
     --body-bg-color: black;
-    /* dark body background */
 }
 
-/* Set body or wrapper background */
 body,
 .app-wrapper {
     background-color: var(--body-bg-color);
@@ -26,54 +23,55 @@ body,
     margin: 0 auto;
     background-color: var(--bg-color);
     color: var(--text-color);
+    padding: 2rem;
 }
 
 .homePage__header {
-    max-width: 800px;
     margin: 0 auto;
-    margin-top: 30px;
+    width: 50%;
+    font-size: 1rem;
+    line-height: 1.6;
 }
 
 .homePage__chat {
     display: flex;
     justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
 }
 
 .chat-container {
     display: flex;
     flex-direction: column;
-    height: 500px;
-    width: 800px;
+    height: 60vh;
+    /* Adjust this value as needed */
+    width: 50%;
+    /* Flexible width */
     border: 1px solid #ccc;
     border-radius: 10px;
-    margin: 0 auto;
-    margin-top: 30px;
+    margin: 2rem auto;
 }
 
 .chat-box {
     flex: 1;
     overflow-y: auto;
-    padding: 15px;
+    padding: 1rem;
     border-bottom: 1px solid #ccc;
-    text-align: left;
-    /* Align text to the left */
 }
-
 
 .input-box {
     display: flex;
-    padding: 10px;
+    padding: 1rem;
 }
 
 .input-box input {
     flex: 1;
+    margin-right: 1rem;
 }
 
 .message-right,
-
 .message-left {
-    margin-bottom: 15px;
-    /* Adds space below each message */
+    margin-bottom: 1rem;
 }
 
 .message-right {
@@ -85,10 +83,9 @@ body,
 }
 
 .loading {
-    /* Your loading styles here, e.g., */
-    font-size: 14px;
+    font-size: 1rem;
     text-align: center;
-    padding: 10px;
+    padding: 1rem;
 }
 
 .error-container {
@@ -96,6 +93,93 @@ body,
     justify-content: center;
     align-items: center;
     height: 100%;
-    /* You can adjust this value based on your specific layout */
     width: 100%;
+}
+
+.columnContainer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 10vw;
+    /* Adjusted width */
+    height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding-top: 3%;
+}
+
+.iconTitle {
+    margin-left: 10%;
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.columnItem {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    cursor: pointer;
+    height: 7vh;
+    /* Adjusted height */
+}
+
+.icon {
+    width: 20%;
+    height: 100%;
+}
+
+/* Media Query for smaller devices */
+@media (max-width: 768px) {
+    .homePage__header {
+        font-size: 1rem;
+        width: 100%;
+    }
+
+    .chat-container {
+        width: 100%;
+        /* Full width on small screens */
+    }
+
+    .columnContainer {
+        width: 100%;
+        /* Set width to 100% of the screen */
+        height: auto;
+        position: static;
+        flex-direction: column;
+        /* Set to column for vertical alignment */
+        justify-content: center;
+        /* Centered items vertically */
+        align-items: center;
+        /* Centered items horizontally */
+    }
+
+    .columnItem {
+        height: auto;
+        width: 15%;
+        /* Set item width to 15% of the screen */
+        margin: 0 auto;
+        padding: 2%;
+        /* Center the item horizontally */
+    }
+
+    .icon {
+        width: 60%;
+        /* Icon takes the full width of columnItem */
+        display: block;
+        /* Ensure it’s a block element */
+        margin: 0 auto;
+        /* Center the icon */
+    }
+
+    .iconTitle {
+        margin: 0;
+        padding-left: 25%;
+        /* Adjusted space between icon and title */
+        text-align: center;
+        display: block;
+        /* Ensure it appears below the icon */
+        font-size: 1rem;
+        /* Adjust font size as needed */
+    }
 }

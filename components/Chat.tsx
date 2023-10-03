@@ -1,19 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { start } from 'repl';
-
-
-interface ChatModel {
-    chat_id: string;
-    messages: Message[];
-}
 
 interface Message {
     content: string;
     author: string;
 }
 
-
-//const BASE_API_URL = 'http://localhost:8000/chat';
 const BASE_API_URL_CHECK = 'http://localhost:8000';
 const BASE_API_URL = BASE_API_URL_CHECK + '/chat';
 //const testMode = false;
@@ -21,7 +12,6 @@ const BASE_API_URL = BASE_API_URL_CHECK + '/chat';
 const Chat: React.FC = () => {
 
     const [chatId, setChatId] = useState<string | null>(null);
-
     const [messages, setMessages] = useState<Message[]>([]);
     const [newMessage, setNewMessage] = useState<string>('');
     const [isConnected, setIsConnected] = useState<boolean>(false);
@@ -128,9 +118,11 @@ const Chat: React.FC = () => {
         }
     };
 
+    /*
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages]);
+    */
 
     return (
         <div className="chat-container">
