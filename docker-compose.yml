@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  nextjs-app:
+    build: .
+    container_name: web-portofolio
+    image: web-portofolio-image
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    volumes:
+      - .:/app
