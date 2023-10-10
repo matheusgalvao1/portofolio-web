@@ -7,6 +7,7 @@ interface Message {
 }
 
 const BASE_API_URL_CHECK = process.env.NEXT_PUBLIC_BASE_API_URL_CHECK || "https://portofolioapi-npotaltx2q-no.a.run.app";
+//const BASE_API_URL_CHECK = "https://portofolioapi-npoataltx2q-no.a.run.app";
 const BASE_API_URL = BASE_API_URL_CHECK + '/chat';
 //const testMode = false;
 
@@ -19,31 +20,29 @@ const Chat: React.FC = () => {
     const [isConnected, setIsConnected] = useState<boolean>(false);
     const [isSending, setIsSending] = useState<boolean>(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         const checkConnection = async () => {
             setIsLoading(true);
-            console.log("Cheking API:", BASE_API_URL_CHECK);  // Should log the correct response
+            console.log("Checking API:", BASE_API_URL_CHECK);
             try {
                 const response = await fetch(`${BASE_API_URL_CHECK}/`);
                 console.log("API checked");
                 if (response.ok) {
-                    const id = await startChat();
-                    if (id) {
-                        console.log("ID received from startChat:", id);  // Should log the correct ID
-                        setChatId(id);
-                        await fetchMessages(id);  // Pass id directly to fetchMessages
-                        setIsConnected(true);
-                    }
+                    setIsConnected(true);
+                    setError(null);
                 } else {
                     setIsConnected(false);
+                    setError('Failed to connect to the server.');
                 }
             } catch (error) {
+                console.error("Error while checking API:", error);
                 setIsConnected(false);
+                setError('Failed to connect to the server.');
             }
             setIsLoading(false);
         };
-
         checkConnection();
     }, []);
 
@@ -57,15 +56,18 @@ const Chat: React.FC = () => {
                     return data.chat_id;
                 } else {
                     setIsConnected(false);
+                    setError('Failed to connect to the server.');
                     console.error("No chat_id received from server");
                     return null;
                 }
             } else {
                 setIsConnected(false);
+                setError(null);
                 return null;
             }
         } catch (error) {
             setIsConnected(false);
+            setError('Failed to connect to the server.');
             console.error("An error occurred while starting the chat:", error);
         }
     };
@@ -74,7 +76,6 @@ const Chat: React.FC = () => {
         if (!chatId) return;
 
         try {
-            console.log("Chat ID passed to fetchMessages:", chatId);  // Should log the correct ID
             const response = await fetch(`${BASE_API_URL}/get_chat_db/?chat_id=${chatId}`);
             const data = await response.json();
 
@@ -84,19 +85,26 @@ const Chat: React.FC = () => {
             }));
             setMessages(adaptedMessages);
         } catch (error) {
-            // Handle the error
+            setError('Failed to connect to the server.');
             console.error("An error occurred while fetching the messages:", error);
         }
     };
 
-
     const handleSendMessage = async () => {
-        if (!newMessage || isSending || !chatId) return;
+        if (!newMessage || isSending) return;
 
         setIsSending(true);
 
-        console.log("Chat ID passed to handleSendMessage:", chatId);  // Should log the correct ID
-        console.log("New message passed to handleSendMessage:", newMessage);  // Should log the correct message
+        if (!chatId) {
+            const id = await startChat();
+            if (!id) {
+                console.error("Failed to start chat");
+                setError('Failed to connect to the server.');
+                setIsSending(false);
+                return;
+            }
+            setChatId(id);
+        }
 
         const queryString = `chat_id=${chatId}&message=${encodeURIComponent(newMessage)}`;
 
@@ -107,34 +115,41 @@ const Chat: React.FC = () => {
 
             if (response.ok) {
                 setNewMessage('');
-                await fetchMessages(chatId);
+                await fetchMessages(chatId as string);
             } else {
-                console.error('Failed to send message:', await response.text());
+                // Handle the error (you may want to set some error state here)
             }
         } catch (error) {
-            console.error('Error sending message:', error);
+            setError('Failed to connect to the server.');
+            console.log("An error occurred while sending the message:", error);
+        } finally {
+            setIsSending(false);
         }
-
-        setIsSending(false);
     };
 
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && !isSending) {
-            handleSendMessage();
+            if (!chatId) {
+                startChat().then(id => {
+                    if (id) {
+                        setChatId(id);
+                    }
+                });
+            } else {
+                handleSendMessage();
+            }
         }
     };
-
-    /*
-    useEffect(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, [messages]);
-    */
 
     return (
         <div className="chat-container">
             {isLoading ? (
                 <div className="spinner-container">
                     <div className="spinner"></div>
+                </div>
+            ) : error ? (
+                <div className="error-container">
+                    <div>{error}</div>
                 </div>
             ) : isConnected ? (
                 <>
