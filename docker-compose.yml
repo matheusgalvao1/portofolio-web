@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   nextjs-app:
+    platform: linux/amd64
     build: .
     container_name: web-portofolio
     image: web-portofolio-image

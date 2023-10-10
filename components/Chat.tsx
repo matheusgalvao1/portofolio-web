@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
+import 'styles/Chat.css';
 
 interface Message {
     content: string;
     author: string;
 }
 
-//const BASE_API_URL_CHECK = 'http://localhost:8000';
-const BASE_API_URL_CHECK = process.env.NEXT_PUBLIC_BASE_API_URL_CHECK;
+const BASE_API_URL_CHECK = process.env.NEXT_PUBLIC_BASE_API_URL_CHECK || "https://portofolioapi-npotaltx2q-no.a.run.app";
 const BASE_API_URL = BASE_API_URL_CHECK + '/chat';
 //const testMode = false;
 
@@ -15,14 +15,18 @@ const Chat: React.FC = () => {
     const [chatId, setChatId] = useState<string | null>(null);
     const [messages, setMessages] = useState<Message[]>([]);
     const [newMessage, setNewMessage] = useState<string>('');
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isConnected, setIsConnected] = useState<boolean>(false);
     const [isSending, setIsSending] = useState<boolean>(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const checkConnection = async () => {
+            setIsLoading(true);
+            console.log("Cheking API:", BASE_API_URL_CHECK);  // Should log the correct response
             try {
                 const response = await fetch(`${BASE_API_URL_CHECK}/`);
+                console.log("API checked");
                 if (response.ok) {
                     const id = await startChat();
                     if (id) {
@@ -37,6 +41,7 @@ const Chat: React.FC = () => {
             } catch (error) {
                 setIsConnected(false);
             }
+            setIsLoading(false);
         };
 
         checkConnection();
@@ -127,7 +132,11 @@ const Chat: React.FC = () => {
 
     return (
         <div className="chat-container">
-            {isConnected ? (
+            {isLoading ? (
+                <div className="spinner-container">
+                    <div className="spinner"></div>
+                </div>
+            ) : isConnected ? (
                 <>
                     <div className="chat-box">
                         {messages.map((message, index) => (
@@ -145,7 +154,7 @@ const Chat: React.FC = () => {
                             onKeyPress={handleKeyPress}
                             disabled={isSending}
                         />
-                        <button onClick={handleSendMessage} disabled={isSending}>
+                        <button onClick={handleSendMessage} className="apple-button" disabled={isSending}>
                             {isSending ? 'Sending...' : 'Send'}
                         </button>
                     </div>
