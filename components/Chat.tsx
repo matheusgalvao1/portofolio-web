@@ -7,9 +7,8 @@ interface Message {
 }
 
 const BASE_API_URL_CHECK = process.env.NEXT_PUBLIC_BASE_API_URL_CHECK || "https://portofolioapi-npotaltx2q-no.a.run.app";
-//const BASE_API_URL_CHECK = "https://portofolioapi-npoataltx2q-no.a.run.app";
 const BASE_API_URL = BASE_API_URL_CHECK + '/chat';
-//const testMode = false;
+const greeting = 'Welcome, my name is Matheus, this interactive chat is connected to a modern LLM designed to answer to your questions in any language about my career, skills, experience, projects, and more, offering you a deeper understanding of who I am and what I do. Dive in, and enjoy learning more about me through a fun and informative experience!';
 
 const Chat: React.FC = () => {
 
@@ -95,18 +94,19 @@ const Chat: React.FC = () => {
 
         setIsSending(true);
 
-        if (!chatId) {
-            const id = await startChat();
-            if (!id) {
+        let currentChatId = chatId;
+        if (!currentChatId) {
+            currentChatId = await startChat();
+            if (!currentChatId) {
                 console.error("Failed to start chat");
                 setError('Failed to connect to the server.');
                 setIsSending(false);
                 return;
             }
-            setChatId(id);
+            setChatId(currentChatId);
         }
 
-        const queryString = `chat_id=${chatId}&message=${encodeURIComponent(newMessage)}`;
+        const queryString = `chat_id=${currentChatId}&message=${encodeURIComponent(newMessage)}`;
 
         try {
             const response = await fetch(`${BASE_API_URL}/send_message/?${queryString}`, {
@@ -115,9 +115,15 @@ const Chat: React.FC = () => {
 
             if (response.ok) {
                 setNewMessage('');
-                await fetchMessages(chatId as string);
+                const data = await response.json();
+                const adaptedMessages: Message[] = data.messages.map((msg: any, index: number) => ({
+                    content: msg.content,
+                    author: msg.author,
+                }));
+                setMessages(adaptedMessages);
+                //await fetchMessages(currentChatId as string);
             } else {
-                // Handle the error (you may want to set some error state here)
+                console.log("Failed to send message");
             }
         } catch (error) {
             setError('Failed to connect to the server.');
@@ -154,6 +160,9 @@ const Chat: React.FC = () => {
             ) : isConnected ? (
                 <>
                     <div className="chat-box">
+                        <div className={'message-left'}>
+                            {greeting}
+                        </div>
                         {messages.map((message, index) => (
                             <div key={index} className={message.author === 'Human' ? 'message-right' : 'message-left'}>
                                 {message.content}

@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'Gabarito';
+    src: url('/fonts/Gabarito.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
 :root {
     /* Light theme */
     --text-color: black;
@@ -30,6 +37,7 @@ body,
     margin: 0 auto;
     width: 50%;
     font-size: 1rem;
+    font-family: 'Gabarito', sans-serif;
     line-height: 1.6;
 }
 
@@ -67,6 +75,7 @@ body,
     width: 100%;
     cursor: pointer;
     height: 7vh;
+    font-family: 'Gabarito', sans-serif;
     /* Adjusted height */
 }
 
