@@ -7,7 +7,7 @@ function Greeting() {
         <div className={'container'}>
             <div className={'profile-container'}>
                 <img
-                    src="https://media.licdn.com/dms/image/D4D03AQFL9pRc4pPqrQ/profile-displayphoto-shrink_800_800/0/1696414371572?e=1702512000&v=beta&t=69uMDvTcVAfjpSPZ4PHnQX4w3clzHcInpuu7qwbVBaM"
+                    src="assets/memoji.svg"
                     alt="Profile Picture"
                     className={'profile-picture'}
                 />

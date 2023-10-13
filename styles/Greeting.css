@@ -5,9 +5,9 @@
 }
 
 .profile-container {
-    height: 40%;
+    height: 50%;
     /* Percentage of the parent element */
-    max-width: 100px;
+    max-width: 150px;
     /* Maximum width */
     height: auto;
     /* Maintain aspect ratio */
@@ -15,9 +15,9 @@
 }
 
 .profile-picture {
-    width: 100%;
+    width: 80%;
     /* Percentage of the .profile-container */
-    border-radius: 50%;
+    border-radius: 20%;
     object-fit: cover;
 }
 
@@ -36,7 +36,7 @@
     }
 
     .message {
-        margin-left: 0;
+        margin-left: 1rem;
         text-align: left;
         font-size: 1rem;
         font-family: 'Gabarito', sans-serif;

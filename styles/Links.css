@@ -1,12 +1,14 @@
 .rowContainer {
-    width: 30%;
+    width: 50%;
     margin: 0 auto;
     /* Centers the container */
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
+    /* Keeps items horizontally centered */
     align-items: center;
-    padding: 1%;
+    gap: 5%;
+    /* Adjust this value to control the space between items */
 }
 
 .iconTitle {
@@ -41,7 +43,7 @@
 /* Media Query Example */
 @media (max-width: 768px) {
     .rowContainer {
-        width: 90%;
+        width: 0%;
         margin: 0 auto;
         /* Centers the container */
         display: flex;

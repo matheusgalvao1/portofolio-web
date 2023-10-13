@@ -15,8 +15,8 @@
 [data-theme="dark"] {
     /* Dark theme */
     --text-color: white;
-    --bg-color: black;
-    --body-bg-color: black;
+    --bg-color: rgb(8, 5, 71);
+    --body-bg-color: rgb(8, 5, 71);
 }
 
 body,
@@ -46,95 +46,4 @@ body,
     justify-content: center;
     align-items: flex-start;
     flex-wrap: wrap;
-}
-
-
-
-.columnContainer {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 10vw;
-    /* Adjusted width */
-    height: 100vh;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    padding-top: 3%;
-}
-
-.iconTitle {
-    margin-left: 10%;
-    font-size: 1rem;
-    line-height: 1;
-}
-
-.columnItem {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    cursor: pointer;
-    height: 7vh;
-    font-family: 'Gabarito', sans-serif;
-    /* Adjusted height */
-}
-
-.icon {
-    width: 20%;
-    height: 100%;
-}
-
-/* Media Query for smaller devices */
-@media (max-width: 768px) {
-    .homePage__header {
-        font-size: 1rem;
-        width: 100%;
-    }
-
-    .chat-container {
-        width: 100%;
-        /* Full width on small screens */
-    }
-
-    .columnContainer {
-        width: 100%;
-        /* Set width to 100% of the screen */
-        height: auto;
-        position: static;
-        flex-direction: column;
-        /* Set to column for vertical alignment */
-        justify-content: center;
-        /* Centered items vertically */
-        align-items: center;
-        /* Centered items horizontally */
-    }
-
-    .columnItem {
-        height: auto;
-        width: 15%;
-        /* Set item width to 15% of the screen */
-        margin: 0 auto;
-        padding: 2%;
-        /* Center the item horizontally */
-    }
-
-    .icon {
-        width: 60%;
-        /* Icon takes the full width of columnItem */
-        display: block;
-        /* Ensure it’s a block element */
-        margin: 0 auto;
-        /* Center the icon */
-    }
-
-    .iconTitle {
-        margin: 0;
-        padding-left: 25%;
-        /* Adjusted space between icon and title */
-        text-align: center;
-        display: block;
-        /* Ensure it appears below the icon */
-        font-size: 1rem;
-        /* Adjust font size as needed */
-    }
 }

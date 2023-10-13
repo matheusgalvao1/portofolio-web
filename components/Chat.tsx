@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import 'styles/Chat.css';
 import Greeting from './Greeting';
+import SendButton from './SendButton';
 
 interface Message {
     content: string;
@@ -177,9 +178,7 @@ const Chat: React.FC = () => {
                             onKeyPress={handleKeyPress}
                             disabled={isSending}
                         />
-                        <button onClick={handleSendMessage} className="apple-button" disabled={isSending}>
-                            {isSending ? 'Sending...' : 'Send'}
-                        </button>
+                        <SendButton isSending={isSending} handleSendMessage={handleSendMessage} />
                     </div>
                 </>
             ) : (
