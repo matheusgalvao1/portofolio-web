@@ -1,0 +1,76 @@
+.rowContainer {
+    width: 30%;
+    margin: 0 auto;
+    /* Centers the container */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1%;
+}
+
+.iconTitle {
+    margin-top: 0.8rem;
+    /* Space above the text */
+    font-size: 80%;
+    line-height: 1;
+    text-align: center;
+    /* Center text below the icon */
+}
+
+.rowItem {
+    /* Changed class name for clarity */
+    display: flex;
+    flex-direction: column;
+    /* Vertical arrangement of icon and text */
+    align-items: center;
+    /* Center items horizontally */
+    width: 7%;
+    /* Adjusted width */
+    cursor: pointer;
+    font-family: 'Gabarito', sans-serif;
+}
+
+.icon {
+    width: 80%;
+    /* Adjusted width */
+    height: 80%;
+    /* Adjusted height */
+}
+
+/* Media Query Example */
+@media (max-width: 768px) {
+    .rowContainer {
+        width: 90%;
+        margin: 0 auto;
+        /* Centers the container */
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        padding: 1%;
+    }
+
+
+    .iconTitle {
+        margin-top: 0.8rem;
+        /* Space above the text */
+        font-size: 0%;
+        line-height: 1;
+        text-align: center;
+        /* Center text below the icon */
+    }
+
+    .rowItem {
+        /* Changed class name for clarity */
+        display: flex;
+        flex-direction: column;
+        /* Vertical arrangement of icon and text */
+        align-items: center;
+        /* Center items horizontally */
+        width: 15%;
+        /* Adjusted width */
+        cursor: pointer;
+        font-family: 'Gabarito', sans-serif;
+    }
+}

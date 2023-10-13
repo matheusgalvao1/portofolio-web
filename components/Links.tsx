@@ -1,16 +1,17 @@
 import React from 'react';
 import icons from '../public/links.json'; // Adjust the import path as needed
+import 'styles/Links.css';
 
-const RightColumn: React.FC = () => {
+const Links: React.FC = () => {
     const handleClick = (url: string) => {
         window.open(url, '_blank'); // Opens the link in a new tab
     };
 
     return (
-        <div className="columnContainer">
+        <div className="rowContainer"> {/* Updated className */}
             {/* Iterate over the icons object and render each icon */}
             {Object.entries(icons).map(([iconName, iconData]) => (
-                <div key={iconName} onClick={() => handleClick(iconData.url)} className="columnItem">
+                <div key={iconName} onClick={() => handleClick(iconData.url)} className="rowItem"> {/* Updated className */}
                     <img src={`/assets/${iconName}.svg`} alt={iconName} className="icon" />
                     <span className="iconTitle">{iconData.title}</span>
                 </div>
@@ -19,4 +20,4 @@ const RightColumn: React.FC = () => {
     );
 };
 
-export default RightColumn;
+export default Links;

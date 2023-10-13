@@ -1,7 +1,7 @@
 // pages/index.tsx
 import React from 'react';
 import Chat from '../components/Chat';
-import RightColumn from '../components/RightColumn'
+import Links from '../components/Links'
 
 const HomePage: React.FC = () => {
     return (
@@ -11,7 +11,7 @@ const HomePage: React.FC = () => {
             </h4>
             <div className="homePage__chat">
                 <Chat />
-                <RightColumn />
+                <Links />
             </div>
         </div>
     );

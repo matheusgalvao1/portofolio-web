@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import 'styles/Chat.css';
+import Greeting from './Greeting';
 
 interface Message {
     content: string;
@@ -160,9 +161,7 @@ const Chat: React.FC = () => {
             ) : isConnected ? (
                 <>
                     <div className="chat-box">
-                        <div className={'message-left'}>
-                            {greeting}
-                        </div>
+                        <Greeting />
                         {messages.map((message, index) => (
                             <div key={index} className={message.author === 'Human' ? 'message-right' : 'message-left'}>
                                 {message.content}

@@ -1,13 +1,14 @@
 .chat-container {
     display: flex;
     flex-direction: column;
-    height: 60vh;
+    height: 70vh;
     /* Adjust this value as needed */
-    width: 50%;
+    width: 70%;
     /* Flexible width */
     border: 1px solid #ccc;
     border-radius: 5 px;
-    margin: 2rem auto;
+    margin-top: 1%;
+    margin-bottom: 2%;
 }
 
 .chat-box {
@@ -33,6 +34,7 @@
 .message-right,
 .message-left {
     margin-bottom: 1rem;
+    font-size: 1rem;
     font-family: 'Gabarito', sans-serif;
 }
 
@@ -64,9 +66,8 @@
     border-radius: 8px;
     color: #000;
     cursor: pointer;
-    padding: 1% 2%;
+    padding: 1% 1%;
     font-size: 100%;
-    margin-right: 1%;
     font-family: 'Gabarito', sans-serif;
     transition: background 0.3s;
 }
@@ -118,14 +119,29 @@
 }
 
 @media (max-width: 768px) {
+
+    .chat-container {
+        display: flex;
+        flex-direction: column;
+        height: 90vh;
+        /* Adjust this value as needed */
+        width: 100%;
+        /* Flexible width */
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        /*margin: 1rem auto; */
+    }
+
+
+
     .apple-button {
         background: #f0f0f7;
         border: none;
         border-radius: 8px;
         color: #000;
         cursor: pointer;
-        padding: 1% 5%;
-        font-size: 0%;
+        padding: 1% 1%;
+        font-size: 100%;
         font-family: 'Gabarito', sans-serif;
         transition: background 0.3s;
     }

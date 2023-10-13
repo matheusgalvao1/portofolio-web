@@ -1,7 +1,7 @@
 @font-face {
     font-family: 'Gabarito';
     src: url('/fonts/Gabarito.ttf') format('truetype');
-    font-weight: 400;
+    font-weight: 200;
     font-style: normal;
 }
 
@@ -30,7 +30,7 @@ body,
     margin: 0 auto;
     background-color: var(--bg-color);
     color: var(--text-color);
-    padding: 2rem;
+    padding: 0.5%;
 }
 
 .homePage__header {

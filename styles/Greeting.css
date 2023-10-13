@@ -1,0 +1,44 @@
+.container {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.profile-container {
+    height: 40%;
+    /* Percentage of the parent element */
+    max-width: 100px;
+    /* Maximum width */
+    height: auto;
+    /* Maintain aspect ratio */
+    overflow: hidden;
+}
+
+.profile-picture {
+    width: 100%;
+    /* Percentage of the .profile-container */
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.message {
+    margin-left: 1rem;
+    text-align: left;
+    font-size: 1rem;
+    font-family: 'Gabarito', sans-serif;
+}
+
+/* Media Query Example */
+@media (max-width: 768px) {
+    .profile-container {
+        width: 0%;
+        /* Adjusted for smaller screens */
+    }
+
+    .message {
+        margin-left: 0;
+        text-align: left;
+        font-size: 1rem;
+        font-family: 'Gabarito', sans-serif;
+    }
+}
