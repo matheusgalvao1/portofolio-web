@@ -14,6 +14,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
             <Head>
                 <title>Matheus' Portfolio</title>
                 <link rel="icon" href="/favicon.png" />
+                <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
             </Head>
             <Component {...pageProps} />
         </>
