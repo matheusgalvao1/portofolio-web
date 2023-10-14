@@ -8,11 +8,14 @@ const Links: React.FC = () => {
     };
 
     return (
-        <div className="rowContainer"> {/* Updated className */}
+        <div className="rowContainer">
             {/* Iterate over the icons object and render each icon */}
             {Object.entries(icons).map(([iconName, iconData]) => (
-                <div key={iconName} onClick={() => handleClick(iconData.url)} className="rowItem"> {/* Updated className */}
-                    <img src={`/assets/${iconName}.svg`} alt={iconName} className="icon" />
+                <div
+                    key={iconName} onClick={() => handleClick(iconData.url)}
+                    className="rowItem"
+                    title={iconData.title}>
+                    <img src={`/assets/links/${iconName}.svg`} alt={iconName} className="icon" />
                 </div>
             ))}
         </div>

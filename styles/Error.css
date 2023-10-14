@@ -1,0 +1,10 @@
+.error-message {
+    text-align: left;
+    font-size: 1.3rem;
+    font-family: 'Gabarito', sans-serif;
+}
+
+.profile-picture {
+    width: 80%;
+    object-fit: cover;
+}

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import 'styles/Chat.css';
 import Greeting from './Greeting';
 import SendButton from './SendButton';
+import ErrorComponent from './Error'
 
 interface Message {
     content: string;
@@ -163,9 +164,7 @@ const Chat: React.FC = () => {
                     <div className="spinner"></div>
                 </div>
             ) : error ? (
-                <div className="error-container">
-                    <div>{error}</div>
-                </div>
+                <ErrorComponent message={"Sorry, it's a problem with the API..."} />
             ) : isConnected ? (
                 <>
                     <div className="chat-box">
@@ -184,7 +183,7 @@ const Chat: React.FC = () => {
                             onChange={(e) => setNewMessage(e.target.value)}
                             onKeyPress={handleKeyPress}
                             disabled={isSending}
-                            placeholder="Make a question..."
+                            placeholder="Make me a question..."
                         />
                         <SendButton isSending={isSending} handleSendMessage={handleSendMessage} />
                     </div>
