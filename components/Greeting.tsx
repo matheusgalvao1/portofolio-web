@@ -1,6 +1,6 @@
 import 'styles/Greeting.css';
 
-const greeting = 'Welcome, my name is Matheus, this interactive chat is connected to a modern LLM designed to answer to your questions in any language about my career, skills, experience, projects, and more, offering you a deeper understanding of who I am and what I do. Dive in, and enjoy learning more about me through a fun and informative experience!';
+const greeting = "Hello! Ask me anything about Matheus!"
 
 function Greeting() {
     return (

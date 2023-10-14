@@ -47,6 +47,12 @@ const Chat: React.FC = () => {
         checkConnection();
     }, []);
 
+    // Run this useEffect every time 'messages' changes
+    useEffect(() => {
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
+        }
+    }, [messages]);
 
     const startChat = async () => {
         try {
@@ -143,6 +149,7 @@ const Chat: React.FC = () => {
                         setChatId(id);
                     }
                 });
+                handleSendMessage();
             } else {
                 handleSendMessage();
             }
@@ -177,6 +184,7 @@ const Chat: React.FC = () => {
                             onChange={(e) => setNewMessage(e.target.value)}
                             onKeyPress={handleKeyPress}
                             disabled={isSending}
+                            placeholder="Make a question..."
                         />
                         <SendButton isSending={isSending} handleSendMessage={handleSendMessage} />
                     </div>

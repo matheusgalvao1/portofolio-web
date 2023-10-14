@@ -56,6 +56,38 @@
 }
 
 .input-box input {
+    flex-grow: 1;
+    /* Make the input take up all available space */
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    /* Remove the default focus outline */
+}
+
+.input-box input::placeholder {
+    color: #888;
+    /* Set the color of the placeholder text */
+    opacity: 1;
+    /* Override browser default (fix for Firefox) */
+}
+
+.input-box input:focus::placeholder {
+    color: #aaa;
+    /* Change color on focus */
+}
+
+/* For Internet Explorer */
+.input-box input:-ms-input-placeholder {
+    color: #888;
+}
+
+/* For Edge */
+.input-box input::-ms-input-placeholder {
+    color: #888;
+}
+
+.input-box input {
     flex: 1;
     margin-right: 1%;
     padding-left: 10px;

@@ -13,7 +13,6 @@ const Links: React.FC = () => {
             {Object.entries(icons).map(([iconName, iconData]) => (
                 <div key={iconName} onClick={() => handleClick(iconData.url)} className="rowItem"> {/* Updated className */}
                     <img src={`/assets/${iconName}.svg`} alt={iconName} className="icon" />
-                    <span className="iconTitle">{iconData.title}</span>
                 </div>
             ))}
         </div>
