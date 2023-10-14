@@ -167,7 +167,7 @@ const Chat: React.FC = () => {
                 <ErrorComponent message={"Sorry, it's a problem with the API..."} />
             ) : isConnected ? (
                 <>
-                    <div className="chat-box">
+                    <div className="chat-box" ref={messagesEndRef}>
                         <Greeting />
                         {messages.map((message, index) => (
                             <div key={index} className={message.author === 'Human' ? 'message-right' : 'message-left'}>

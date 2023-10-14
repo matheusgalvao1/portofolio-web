@@ -30,6 +30,7 @@
     width: 7%;
     /* Adjusted width */
     cursor: pointer;
+
     font-family: 'Gabarito', sans-serif;
 }
 
@@ -74,6 +75,7 @@
         width: 15%;
         /* Adjusted width */
         cursor: pointer;
+
         font-family: 'Gabarito', sans-serif;
     }
 }
