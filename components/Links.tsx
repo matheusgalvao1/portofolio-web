@@ -15,7 +15,7 @@ const Links: React.FC = () => {
                     key={iconName} onClick={() => handleClick(iconData.url)}
                     className="rowItem"
                     title={iconData.title}>
-                    <img src={`/assets/links/${iconName}.svg`} alt={iconName} className="icon" />
+                    <img src={iconData.address} alt={iconName} className="icon" />
                 </div>
             ))}
         </div>
