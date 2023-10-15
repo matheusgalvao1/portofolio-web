@@ -13,41 +13,10 @@
 
 .chat-box {
     flex: 1;
+    max-height: 75vh;
     overflow-y: auto;
     padding-right: 1.5rem;
-
-    /* Scrollbar styling */
-    scrollbar-width: thin;
-    scrollbar-color: #BBDEFB #1E88E5;
-    /* Light blue thumb and darker blue track */
-
-    /* For WebKit browsers */
-    ::-webkit-scrollbar {
-        width: 12px;
-        /* Adjusted width for a slightly thicker scrollbar */
-    }
-
-    ::-webkit-scrollbar-track {
-        background-color: #1E88E5;
-        /* Darker blue track */
-        border-radius: 10px;
-        /* Rounded edges for the track */
-    }
-
-    ::-webkit-scrollbar-thumb {
-        background-color: #BBDEFB;
-        /* Light blue thumb */
-        border-radius: 10px;
-        /* Rounded scrollbar thumb */
-        border: 2px solid #1E88E5;
-        /* Darker blue border around the thumb */
-    }
-
-    /* Add hover effect */
-    ::-webkit-scrollbar-thumb:hover {
-        background-color: #90CAF9;
-        /* Slightly darker blue on hover */
-    }
+    padding-bottom: 1rem;
 }
 
 .input-box {
@@ -112,6 +81,7 @@
     margin-left: 1rem;
     text-align: left;
 }
+
 
 .loading {
     font-size: 1rem;

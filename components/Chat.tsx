@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import 'styles/Chat.css';
 import Greeting from './Greeting';
 import SendButton from './SendButton';
 import ErrorComponent from './Error'
+import Typed from 'react-typed';
 
 interface Message {
     content: string;
@@ -11,7 +12,6 @@ interface Message {
 
 const BASE_API_URL_CHECK = process.env.NEXT_PUBLIC_BASE_API_URL_CHECK || "https://portofolioapi-npotaltx2q-no.a.run.app";
 const BASE_API_URL = BASE_API_URL_CHECK + '/chat';
-const greeting = 'Welcome, my name is Matheus, this interactive chat is connected to a modern LLM designed to answer to your questions in any language about my career, skills, experience, projects, and more, offering you a deeper understanding of who I am and what I do. Dive in, and enjoy learning more about me through a fun and informative experience!';
 
 const Chat: React.FC = () => {
 
@@ -23,6 +23,8 @@ const Chat: React.FC = () => {
     const [isSending, setIsSending] = useState<boolean>(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const [error, setError] = useState<string | null>(null);
+    const lastMessageRef = useRef<HTMLDivElement | null>(null);
+    const [lastMessageHeight, setLastMessageHeight] = useState(0);
 
     useEffect(() => {
         const checkConnection = async () => {
@@ -48,12 +50,30 @@ const Chat: React.FC = () => {
         checkConnection();
     }, []);
 
-    // Run this useEffect every time 'messages' changes
+    const scrollToBottom = useCallback(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, []);
+
     useEffect(() => {
-        if (messagesEndRef.current) {
-            messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
-        }
+        const checkMessageHeight = () => {
+            if (lastMessageRef.current) {
+                setLastMessageHeight(lastMessageRef.current.clientHeight);
+            }
+        };
+
+        // Check initially
+        checkMessageHeight();
+
+        // Set up an interval to check it regularly
+        const intervalId = setInterval(checkMessageHeight, 100);
+
+        // Clean up the interval on unmount
+        return () => clearInterval(intervalId);
     }, [messages]);
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [lastMessageHeight]);
 
     const startChat = async () => {
         try {
@@ -164,14 +184,29 @@ const Chat: React.FC = () => {
                     <div className="spinner"></div>
                 </div>
             ) : error ? (
-                <ErrorComponent message={"Sorry, it's a problem with the API..."} />
+                <ErrorComponent message={"Sorry, there's a problem with the API..."} />
             ) : isConnected ? (
                 <>
-                    <div className="chat-box" ref={messagesEndRef}>
+                    <div className="chat-box">
                         <Greeting />
+
                         {messages.map((message, index) => (
-                            <div key={index} className={message.author === 'Human' ? 'message-right' : 'message-left'}>
-                                {message.content}
+                            <div
+                                key={index}
+                                className={`
+                                    ${message.author === 'Human' ? 'message-right' : 'message-left'}
+                                    `}
+                                ref={index === messages.length - 1 ? lastMessageRef : null}
+                            >
+                                {index === messages.length - 1 ? (
+                                    <Typed
+                                        strings={[message.content]}
+                                        typeSpeed={5}
+                                        showCursor={false}
+                                    />
+                                ) : (
+                                    message.content
+                                )}
                             </div>
                         ))}
                         <div ref={messagesEndRef}></div>
@@ -192,7 +227,6 @@ const Chat: React.FC = () => {
                 <div className="error-container">
                     <div>Unable to connect to API ;(</div>
                 </div>
-
             )}
         </div>
     );
