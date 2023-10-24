@@ -218,7 +218,7 @@ const Chat: React.FC = () => {
                             onChange={(e) => setNewMessage(e.target.value)}
                             onKeyPress={handleKeyPress}
                             disabled={isSending}
-                            placeholder="Make me a question..."
+                            placeholder="Ask me a question..."
                         />
                         <SendButton isSending={isSending} handleSendMessage={handleSendMessage} />
                     </div>
