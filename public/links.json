@@ -1,9 +1,4 @@
 {
-    "cv": {
-        "title": "CV",
-        "url": "https://drive.google.com/file/d/1dljGMe-JziZ7tejDbvBkwiAMF9xrPRT6/view?usp=sharing",
-        "address": "https://www.svgrepo.com/show/262833/curriculum-vitae-curriculum.svg"
-    },
     "linkedin": {
         "title": "Linkedin",
         "url": "https://www.linkedin.com/in/matheus-galv%C3%A3o-819b5a206/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
@@ -13,15 +8,5 @@
         "title": "Github",
         "url": "https://github.com/matheusgalvao1",
         "address": "https://static-00.iconduck.com/assets.00/github-icon-512x499-ziwq0a1i.png"
-    },
-    "docker": {
-        "title": "Docker",
-        "url": "https://hub.docker.com/u/mathintosh",
-        "address": "https://www.svgrepo.com/show/448221/docker.svg"
-    },
-    "playstore": {
-        "title": "Play Store",
-        "url": "https://play.google.com/store/apps/developer?id=Math+Tech",
-        "address": "https://www.svgrepo.com/show/303178/google-play-store-logo.svg"
     }
 }
